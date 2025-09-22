@@ -182,10 +182,10 @@ def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
 
 
-@app.get('/success')
-def success():
+# --- MODIFIED: Endpoint now serves a form on GET and processes it on POST ---
+@app.route("/success", methods=['GET', 'POST'])
+def success_rupute():
     return send_from_directory(app.static_folder, 'success.html')
-
 
 
 if __name__ == '__main__':
