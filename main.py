@@ -185,6 +185,11 @@ def serve(path):
     return send_from_directory(app.static_folder, 'index.html')
 
 
+@app.get('/success')
+def success():
+    return send_from_directory(app.static_folder, 'success.html')
+
+
 
 if __name__ == '__main__':
     app.run()
